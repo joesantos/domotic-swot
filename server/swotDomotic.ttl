@@ -1,0 +1,495 @@
+@prefix :      <http://www.semanticweb.org/joeds/ontologies/2020/3/swotDomoticProject#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xml:   <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+rdf:rest  a                 rdf:Property , rdfs:Resource ;
+        rdfs:domain         rdf:List ;
+        rdfs:range          rdf:List ;
+        rdfs:subPropertyOf  rdf:rest .
+
+rdf:List  a              rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource .
+
+rdf:predicate  a            rdf:Property , rdfs:Resource ;
+        rdfs:domain         rdf:Statement ;
+        rdfs:subPropertyOf  rdf:predicate .
+
+rdf:Property  a          rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource , rdf:Property .
+
+rdfs:label  a       rdf:Property , rdfs:Resource ;
+        rdfs:range  rdfs:Literal .
+
+rdf:subject  a              rdf:Property , rdfs:Resource ;
+        rdfs:domain         rdf:Statement ;
+        rdfs:subPropertyOf  rdf:subject .
+
+rdfs:Resource  a         rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource .
+
+rdf:type  a         rdf:Property , rdfs:Resource ;
+        rdfs:range  rdfs:Class .
+
+rdfs:Class  a            rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource , rdfs:Class .
+
+rdf:Statement  a         rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource .
+
+rdf:XMLLiteral  a  rdfs:Datatype , rdfs:Class , rdfs:Resource .
+
+rdfs:comment  a     rdf:Property , rdfs:Resource ;
+        rdfs:range  rdfs:Literal .
+
+owl:Thing  a             rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource , owl:Thing .
+
+rdfs:range  a        rdf:Property , rdfs:Resource ;
+        rdfs:domain  rdf:Property ;
+        rdfs:range   rdfs:Class .
+
+:Pessoa  a               rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource , :Pessoa .
+
+rdfs:subPropertyOf  a  rdf:Property , rdfs:Resource ;
+        rdfs:domain  rdf:Property ;
+        rdfs:range   rdf:Property .
+
+rdf:object  a               rdf:Property , rdfs:Resource ;
+        rdfs:domain         rdf:Statement ;
+        rdfs:subPropertyOf  rdf:object .
+
+:Multimidia  a           rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Dispositivo , :Multimidia , rdfs:Resource .
+
+:Comodo  a               rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Local , :Comodo , rdfs:Resource .
+
+:Dispositivo  a          rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource , :Dispositivo .
+
+rdf:nil  a      rdf:List , rdfs:Resource .
+
+rdfs:domain  a       rdf:Property , rdfs:Resource ;
+        rdfs:domain  rdf:Property ;
+        rdfs:range   rdfs:Class .
+
+rdfs:Literal  a          rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource .
+
+:Local  a                rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource , :Local .
+
+rdf:first  a                rdf:Property , rdfs:Resource ;
+        rdfs:domain         rdf:List ;
+        rdfs:subPropertyOf  rdf:first .
+
+rdfs:subClassOf  a   rdf:Property , rdfs:Resource ;
+        rdfs:domain  rdfs:Class ;
+        rdfs:range   rdfs:Class .
+
+:Casa   a                 rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:subClassOf   :Local , :Casa , rdfs:Resource ;
+        owl:disjointWith  :Comodo .
+
+:Sensor  a               rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Dispositivo , :Sensor , rdfs:Resource .
+
+xsd:boolean  a           rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource , xsd:boolean .
+
+:SensorDeIdentificacao
+        a                owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Sensor , :SensorDeIdentificacao , rdfs:Resource , :Dispositivo .
+
+:sala-tv  a                  :SalaDeEstar , owl:NamedIndividual , :Local , owl:Thing , :Comodo , rdfs:Resource ;
+        :belongsTo           :casa-joedson ;
+        :temId               "1111111"^^rdfs:Literal ;
+        owl:topDataProperty  "1111111"^^rdfs:Literal .
+
+:CasaComum  a            owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Casa , :CasaComum , rdfs:Resource , :Local .
+
+:temUltimoNome  a           owl:DatatypeProperty , rdf:Property , rdfs:Resource ;
+        rdfs:domain         :Pessoa ;
+        rdfs:range          rdfs:Literal ;
+        rdfs:subPropertyOf  owl:topDataProperty , :temUltimoNome .
+
+:temStatus  a               rdf:Property , owl:DatatypeProperty , rdfs:Resource ;
+        rdfs:domain         :Dispositivo ;
+        rdfs:range          xsd:boolean ;
+        rdfs:subPropertyOf  owl:topDataProperty , :temStatus .
+
+:quarto-filho  a  :Quarto , owl:NamedIndividual , :Local , rdfs:Resource , :Comodo .
+
+:temVolume  a               owl:DatatypeProperty , rdf:Property , rdfs:Resource ;
+        rdfs:domain         :Multimidia ;
+        rdfs:range          rdfs:Literal ;
+        rdfs:subPropertyOf  owl:topDataProperty , :temVolume .
+
+:Climatizacao  a         owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Dispositivo , :Climatizacao , rdfs:Resource .
+
+:Cortina  a              owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Dispositivo , :Cortina , rdfs:Resource .
+
+:Lavanderia  a           owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Comodo , :Lavanderia , rdfs:Resource , :Local .
+
+:SensorDeLuminosidade
+        a                owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Sensor , :SensorDeLuminosidade , rdfs:Resource , :Dispositivo .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  [ a          rdf:List , rdfs:Resource ;
+                 rdf:first  :Entrada ;
+                 rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                              rdf:first  :PosCondicao ;
+                              rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                           rdf:first  :PreCondicao ;
+                                           rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                                        rdf:first  :Saida ;
+                                                        rdf:rest   ()
+                                                      ]
+                                         ]
+                            ]
+               ]
+] .
+
+:SmartSpeaker  a         owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Dispositivo , :SmartSpeaker , rdfs:Resource .
+
+:Ventilador  a           owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Climatizacao , :Ventilador , rdfs:Resource , :Dispositivo .
+
+:lampada-quarto  a           :LampadaIndividual , owl:NamedIndividual , :Dispositivo , owl:Thing , :Lampada , rdfs:Resource ;
+        :hasLocal            :quarto-filho ;
+        :temId               "1234567890"^^rdfs:Literal ;
+        :temStatus           false ;
+        owl:topDataProperty  "1234567890"^^rdfs:Literal , false .
+
+:PortaInterna  a         owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Porta , :PortaInterna , rdfs:Resource , :Dispositivo .
+
+:Quarto  a               owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Comodo , :Quarto , rdfs:Resource , :Local .
+
+:estaEmCasa  a              owl:DatatypeProperty , rdf:Property , rdfs:Resource ;
+        rdfs:domain         :Pessoa ;
+        rdfs:range          xsd:boolean ;
+        rdfs:subPropertyOf  owl:topDataProperty , :estaEmCasa .
+
+:estaMudo  a                owl:DatatypeProperty , rdf:Property , rdfs:Resource ;
+        rdfs:domain         :Multimidia ;
+        rdfs:range          xsd:boolean ;
+        rdfs:subPropertyOf  owl:topDataProperty , :estaMudo .
+
+:temValor  a                owl:DatatypeProperty , rdf:Property , rdfs:Resource ;
+        rdfs:domain         :Sensor ;
+        rdfs:range          rdfs:Literal ;
+        rdfs:subPropertyOf  owl:topDataProperty , :temValor .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  [ a          rdf:List , rdfs:Resource ;
+                 rdf:first  :Climatizacao ;
+                 rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                              rdf:first  :Cortina ;
+                              rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                           rdf:first  :Fechadura ;
+                                           rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                                        rdf:first  :Janela ;
+                                                        rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                                                     rdf:first  :Lampada ;
+                                                                     rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                                                                  rdf:first  :Microfone ;
+                                                                                  rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                                                                               rdf:first  :Multimidia ;
+                                                                                               rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                                                                                            rdf:first  :Porta ;
+                                                                                                            rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                                                                                                         rdf:first  :Sensor ;
+                                                                                                                         rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                                                                                                                      rdf:first  :SmartSpeaker ;
+                                                                                                                                      rdf:rest   ()
+                                                                                                                                    ]
+                                                                                                                       ]
+                                                                                                          ]
+                                                                                             ]
+                                                                                ]
+                                                                   ]
+                                                      ]
+                                         ]
+                            ]
+               ]
+] .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  [ a          rdf:List , rdfs:Resource ;
+                 rdf:first  :Dispositivo ;
+                 rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                              rdf:first  :Local ;
+                              rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                           rdf:first  :Pessoa ;
+                                           rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                                        rdf:first  :Servico ;
+                                                        rdf:rest   ()
+                                                      ]
+                                         ]
+                            ]
+               ]
+] .
+
+:Saida  a                owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Servico , :Saida .
+
+:Microfone  a            owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Dispositivo , :Microfone , rdfs:Resource .
+
+:temNome  a          owl:DatatypeProperty , rdf:Property , rdfs:Resource ;
+        rdfs:domain  owl:Thing ;
+        rdfs:range   rdfs:Literal .
+
+:CasaAutomatizada  a      owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf   :Casa , :CasaAutomatizada , rdfs:Resource , :Local ;
+        owl:disjointWith  :CasaComum .
+
+:SensorImpressoesDigitais
+        a                 owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf   :SensorDeIdentificacao , :SensorImpressoesDigitais , rdfs:Resource , :Sensor , :Dispositivo ;
+        owl:disjointWith  :SensorIris .
+
+:LampadaIndividual  a    owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Lampada , :LampadaIndividual , rdfs:Resource , :Dispositivo .
+
+:lampada-sala  a             :LampadaIndividual , owl:NamedIndividual , :Dispositivo , owl:Thing , rdfs:Resource , :Lampada ;
+        :hasLocal            :sala-tv ;
+        :temId               "0987654321"^^rdfs:Literal ;
+        :temStatus           false ;
+        owl:topDataProperty  "0987654321"^^rdfs:Literal , false .
+
+:PosCondicao  a          owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Servico , :PosCondicao .
+
+:Lampada  a              owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Dispositivo , :Lampada , rdfs:Resource .
+
+:belongsTo  a        owl:IrreflexiveProperty , owl:AsymmetricProperty , owl:FunctionalProperty , owl:ObjectProperty , rdf:Property , rdfs:Resource ;
+        rdfs:domain  :Comodo ;
+        rdfs:range   :Casa .
+
+:SensorIris  a           owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :SensorDeIdentificacao , :SensorIris , rdfs:Resource , :Sensor , :Dispositivo .
+
+:Porta  a                owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Dispositivo , :Porta , rdfs:Resource .
+
+:Garagem  a              owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Comodo , :Garagem , rdfs:Resource , :Local .
+
+:Sotao  a                owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Comodo , :Sotao , rdfs:Resource , :Local .
+
+:SensorDeTemperatura  a  owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Sensor , :SensorDeTemperatura , rdfs:Resource , :Dispositivo .
+
+:SensorDePresenca  a     owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Sensor , :SensorDePresenca , rdfs:Resource , :Dispositivo .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  [ a          rdf:List , rdfs:Resource ;
+                 rdf:first  :Dispositivo ;
+                 rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                              rdf:first  :Local ;
+                              rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                           rdf:first  :Servico ;
+                                           rdf:rest   ()
+                                         ]
+                            ]
+               ]
+] .
+
+:temId  a                   owl:DatatypeProperty , rdf:Property , rdfs:Resource ;
+        rdfs:domain         owl:Thing ;
+        rdfs:range          rdfs:Literal ;
+        rdfs:subPropertyOf  owl:topDataProperty , :temId .
+
+:FechaduraInterna  a     owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Fechadura , :FechaduraInterna , rdfs:Resource , :Dispositivo .
+
+:temIdade  a                owl:DatatypeProperty , rdf:Property , rdfs:Resource ;
+        rdfs:domain         :Pessoa ;
+        rdfs:range          rdfs:Literal ;
+        rdfs:subPropertyOf  owl:topDataProperty , :temIdade .
+
+:SalaDeEstar  a          owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Comodo , :SalaDeEstar , rdfs:Resource , :Local .
+
+:hasLocal  a         owl:IrreflexiveProperty , owl:AsymmetricProperty , owl:FunctionalProperty , owl:ObjectProperty , rdf:Property , rdfs:Resource ;
+        rdfs:domain  :Dispositivo ;
+        rdfs:range   :Local .
+
+:CameraDeSeguranca  a    owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Camera , :CameraDeSeguranca , rdfs:Resource , :Sensor , :Dispositivo .
+
+:Porao  a                owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Comodo , :Porao , rdfs:Resource , :Local .
+
+:PortaExterna  a          owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf   :Porta , :PortaExterna , rdfs:Resource , :Dispositivo ;
+        owl:disjointWith  :PortaInterna .
+
+:PreCondicao  a          owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Servico , :PreCondicao .
+
+:Servico  a              owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Servico .
+
+:Banheiro  a             owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Comodo , :Banheiro , rdfs:Resource , :Local .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  [ a          rdf:List , rdfs:Resource ;
+                 rdf:first  :Banheiro ;
+                 rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                              rdf:first  :Cozinha ;
+                              rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                           rdf:first  :Garagem ;
+                                           rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                                        rdf:first  :Lavanderia ;
+                                                        rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                                                     rdf:first  :Porao ;
+                                                                     rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                                                                  rdf:first  :Quarto ;
+                                                                                  rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                                                                               rdf:first  :SalaDeEstar ;
+                                                                                               rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                                                                                            rdf:first  :SalaDeJantar ;
+                                                                                                            rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                                                                                                         rdf:first  :Sotao ;
+                                                                                                                         rdf:rest   ()
+                                                                                                                       ]
+                                                                                                          ]
+                                                                                             ]
+                                                                                ]
+                                                                   ]
+                                                      ]
+                                         ]
+                            ]
+               ]
+] .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  [ a          rdf:List , rdfs:Resource ;
+                 rdf:first  :Camera ;
+                 rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                              rdf:first  :SensorDeIdentificacao ;
+                              rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                           rdf:first  :SensorDeLuminosidade ;
+                                           rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                                        rdf:first  :SensorDePresenca ;
+                                                        rdf:rest   [ a          rdf:List , rdfs:Resource ;
+                                                                     rdf:first  :SensorDeTemperatura ;
+                                                                     rdf:rest   ()
+                                                                   ]
+                                                      ]
+                                         ]
+                            ]
+               ]
+] .
+
+:ArCondicionado  a        owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf   :Climatizacao , :ArCondicionado , rdfs:Resource , :Dispositivo ;
+        owl:disjointWith  :Ventilador .
+
+:FechaduraExterna  a      owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf   :Fechadura , :FechaduraExterna , rdfs:Resource , :Dispositivo ;
+        owl:disjointWith  :FechaduraInterna .
+
+:Cozinha  a              owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Comodo , :Cozinha , rdfs:Resource , :Local .
+
+<http://www.semanticweb.org/joeds/ontologies/2020/3/swotDomoticProject>
+        a       owl:Ontology .
+
+:Camera  a               owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Sensor , :Camera , rdfs:Resource , :Dispositivo .
+
+:Entrada  a              owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Servico , :Entrada .
+
+:casa-joedson  a             :CasaAutomatizada , owl:NamedIndividual , :Casa , owl:Thing , rdfs:Resource , :Local ;
+        :temId               "1231231"^^rdfs:Literal ;
+        owl:topDataProperty  "1231231"^^rdfs:Literal .
+
+:Janela  a               owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Dispositivo , :Janela , rdfs:Resource .
+
+:TV     a                owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Multimidia , :TV , rdfs:Resource , :Dispositivo .
+
+:Som    a                 owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf   :Multimidia , :Som , rdfs:Resource , :Dispositivo ;
+        owl:disjointWith  :TV .
+
+:LampadaConjunto  a       owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf   :Lampada , :LampadaConjunto , rdfs:Resource , :Dispositivo ;
+        owl:disjointWith  :LampadaIndividual .
+
+:Fechadura  a            owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Dispositivo , :Fechadura , rdfs:Resource .
+
+:SalaDeJantar  a         owl:Class , rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  :Comodo , :SalaDeJantar , rdfs:Resource , :Local .
+
+rdf:Seq  a               rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdf:Seq , rdfs:Container .
+
+rdfs:Container  a        rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Container .
+
+rdfs:ContainerMembershipProperty
+        a                rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:ContainerMembershipProperty , rdf:Property .
+
+rdf:Bag  a               rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdf:Bag , rdfs:Container .
+
+rdfs:Datatype  a         rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Datatype , rdfs:Class .
+
+rdf:Alt  a               rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdf:Alt , rdfs:Container .
+
+rdfs:isDefinedBy  a         rdf:Property , rdfs:Resource ;
+        rdfs:subPropertyOf  rdfs:isDefinedBy , rdfs:seeAlso .
+
+rdfs:seeAlso  a             rdf:Property , rdfs:Resource ;
+        rdfs:subPropertyOf  rdfs:seeAlso .
+
+owl:topDataProperty  a      rdf:Property , rdfs:Resource ;
+        rdfs:subPropertyOf  owl:topDataProperty .
+
+owl:Class  a    rdfs:Class , rdfs:Resource .
+
+owl:AllDisjointClasses
+        a       rdfs:Class , rdfs:Resource .
+
+owl:AsymmetricProperty
+        a       rdfs:Class , rdfs:Resource .
+
+owl:FunctionalProperty
+        a       rdfs:Class , rdfs:Resource .
+
+owl:DatatypeProperty  a  rdfs:Class , rdfs:Resource .
+
+owl:NamedIndividual  a  rdfs:Class , rdfs:Resource .
+
+owl:ObjectProperty  a  rdfs:Class , rdfs:Resource .
+
+owl:Ontology  a  rdfs:Class , rdfs:Resource .
+
+owl:IrreflexiveProperty
+        a       rdfs:Class , rdfs:Resource .
