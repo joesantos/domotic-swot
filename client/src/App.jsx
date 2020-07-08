@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import ArCondicionado from './components/cards/devices/ArCondicionado';
 
 function App() {
   const [devices, setDevices] = useState([]);
 
   async function getDevices() {
-    const response = await fetch("http://localhost:8080/ac/list-ac");
+    const response = await fetch("http://localhost:8080/ArCondicionado/list");
     const responseJson = await response.json();
     setDevices(responseJson)
   }
@@ -18,17 +19,12 @@ function App() {
     <div className="App">
       {
         devices.length > 0 ? devices.map((item) =>
-          <div>
-            <h3>{item.hasName}</h3>
-            <p>Temperatura: {item.hasTemperature}°C</p>
-            <div>{item.services.map(service =>
-              <div onClick={async () => {
-                await fetch(`http://localhost:8080${service}?id=${item.hasId}`);
-                await getDevices()
-              }}>
-                <span>{service}</span>
-              </div>)}
-            </div>
+          <div className='container'>
+            {item.hasTemperature ?
+              <ArCondicionado item={item} update={getDevices} />
+              :
+              <div>Dispositivo não definido na aplicação {JSON.stringify(item)}</div>
+            }
           </div>
         )
           :

@@ -27,8 +27,10 @@ Faça upload da base de conhecimento inicial disponibilizada na seção Base de 
 
 ## Executando aplicação server
 
-Abra a pasta client no terminal/cmd/powershell e digite ./gradlew run
+Abra a pasta client no terminal/cmd/powershell e digite ```./gradlew run```
 
 ## Executando aplicação client
 
-Abra a pasta client no terminal e digite o comando npm start (Necessário ter o Node e npm instalados na máquina)
+Abra a pasta client no terminal e digite o comando ```npm install``` para baixar as dependências da aplicação e em seguida ```npm start``` 
+
+(Necessário ter o Node e npm instalados na máquina)

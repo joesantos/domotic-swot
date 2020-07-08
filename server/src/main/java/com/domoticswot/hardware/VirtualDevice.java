@@ -12,11 +12,11 @@ public class VirtualDevice {
         System.out.println("Temperatura reduzida. Atual é: " + value + "ºC");
     }
 
-    public void acenderLampada(){
-
+    public void ligarDispositivo(String id){
+        System.out.println("Dispositivo " + id + "Ligado!");
     }
 
-    public void apagarLampada(){
-
+    public void desligarDispositivo(String id){
+        System.out.println("Dispositivo " + id + "Desligado!");
     }
 }

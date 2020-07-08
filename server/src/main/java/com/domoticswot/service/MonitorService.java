@@ -1,4 +1,4 @@
 package com.domoticswot.service;
 
-public class DevicesService {
+public class MonitorService {
 }

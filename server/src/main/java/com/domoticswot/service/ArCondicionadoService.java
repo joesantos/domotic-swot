@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AcService {
+public class ArCondicionadoService {
 
     @Autowired
     ControlGpioExample controlGpioExample;
@@ -31,7 +31,7 @@ public class AcService {
     private ObjectMapper mapper;
 
     public String aumentarTemperatura(String id) {
-        String SERVICE_PATH = "/ac/aumentar-temperatura";
+        String SERVICE_PATH = "/ArCondicionado/aumentar-temperatura";
 
         //Note
         RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create().destination("http://localhost:3030/test");
@@ -123,7 +123,7 @@ public class AcService {
     }
 
     public String reduzirTemperatura(String id) {
-        String SERVICE_PATH = "/ac/reduzir-temperatura";
+        String SERVICE_PATH = "/ArCondicionado/reduzir-temperatura";
 
         //Note
         RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create().destination("http://localhost:3030/test");
@@ -160,6 +160,106 @@ public class AcService {
             Literal hasTemperature;
 
             QueryExecution qeAsk = conn.query(SparqlQueryString.getPrefixes() + preCondicao.getString().replace("#id", id));
+            boolean rsAsk = qeAsk.execAsk();
+
+            QueryExecution qeDevice = conn.query(getDevice);
+            ResultSet rsDevice = qeDevice.execSelect();
+
+            do {
+                QuerySolution qs = rsDevice.next();
+                hasTemperature = qs.getLiteral("hasTemperature");
+
+            } while (rsDevice.hasNext());
+
+            qeDevice.close();
+
+            if (rsAsk) {
+                try {
+                    UpdateRequest updateDevice = UpdateFactory.create(SparqlQueryString.getPrefixes() +
+                            posCondicao.getString()
+                                    .replace("#currentTemperature", hasTemperature.getString())
+                                    .replace("#newTemperature", String.valueOf(hasTemperature.getInt() - 1))
+                                    .replace("#id", id)
+                    );
+
+                    try {
+                        conn.update(updateDevice);
+
+                        virtualDevice.reduzirTemperaturaAc(hasTemperature.getInt() - 1);
+                        /*Map<String, String> deviceMap = parseJsonToObj().getOntologyToGPIOMap();
+                        System.out.println(deviceMap);
+                        Código abaixo só roda em raspberry
+                        try {
+                            controlGpioExample.setStatusTrue(deviceMap.get(id));
+                        } catch (Exception e) {
+                            System.out.println("Não estou no RPi");
+                        }*/
+
+                    } catch (Exception e) {
+                        System.out.println("Não foi possível atualizar o estado do dispositivo" + e.getMessage());
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                return "pré condição não bate";
+            }
+            conn.end();
+            conn.close();
+        } catch (Exception e) {
+            System.out.println("Não foi possível instanciar conexão");
+            e.printStackTrace();
+        }
+
+        return "ok";
+    }
+
+    public String definirTemperatura(String id, Integer temperatura) {
+        String SERVICE_PATH = "/ArCondicionado/definir-temperatura";
+
+        if(temperatura > 29 || temperatura < 16) return "Temperatura informada inválida";
+
+        //Note
+        RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create().destination("http://localhost:3030/test");
+        //Rpi
+        //RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create().destination("http://192.168.1.56:3030/test");
+
+        Query getService = QueryFactory.create(SparqlQueryString.getPreAndPostConditionService(SERVICE_PATH));
+
+        Query getDevice = QueryFactory.create(SparqlQueryString.getPrefixes() +
+                "SELECT ?hasTemperature WHERE {\n" +
+                "?s rdf:type owl:NamedIndividual ;\n" +
+                ":hasId '" + id + "';\n" +
+                ":hasTemperature ?hasTemperature\n" +
+                "\n}"
+        );
+
+
+        try {
+            RDFConnectionFuseki conn = (RDFConnectionFuseki) builder.build();
+            Literal preCondicao;
+            Literal posCondicao;
+
+            QueryExecution qe = conn.query(getService);
+            ResultSet rsService = qe.execSelect();
+
+            do {
+                QuerySolution qs = rsService.next();
+                preCondicao = qs.getLiteral("hasPreCondition");
+                posCondicao = qs.getLiteral("hasPostCondition");
+            } while (rsService.hasNext());
+
+            qe.close();
+
+            Literal hasTemperature;
+
+
+            QueryExecution qeAsk = conn.query(
+                    SparqlQueryString.getPrefixes() + preCondicao.getString()
+                            .replace("#id", id)
+                            .replace("#givenTemperature", temperatura.toString())
+            );
+
             boolean rsAsk = qeAsk.execAsk();
 
             QueryExecution qeDevice = conn.query(getDevice);

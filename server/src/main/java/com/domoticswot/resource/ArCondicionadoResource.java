@@ -2,18 +2,18 @@ package com.domoticswot.resource;
 
 import com.domoticswot.hardware.ControlGpioExample;
 import com.domoticswot.model.AcDTO;
-import com.domoticswot.service.AcService;
+import com.domoticswot.service.ArCondicionadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/ac")
+@RequestMapping("/ArCondicionado")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class AcResource {
+public class ArCondicionadoResource {
     @Autowired
-    AcService acService;
+    ArCondicionadoService arCondicionadoService;
 
     @Autowired
     ControlGpioExample controlGpioExample;
@@ -22,20 +22,28 @@ public class AcResource {
     public String aumentarTemperatura(
             @RequestParam String id
     ) {
-        return acService.aumentarTemperatura(id);
+        return arCondicionadoService.aumentarTemperatura(id);
     }
 
     @GetMapping("/reduzir-temperatura")
     public String reduzirTemperatura(
             @RequestParam String id
     ) {
-        return acService.reduzirTemperatura(id);
+        return arCondicionadoService.reduzirTemperatura(id);
     }
 
-    @GetMapping("/list-ac")
+    @GetMapping("/definir-temperatura")
+    public String definirTemperatura(
+            @RequestParam String id,
+            @RequestParam Integer temperature
+    ){
+        return arCondicionadoService.definirTemperatura(id, temperature);
+    }
+
+    @GetMapping("/list")
     public List<AcDTO> listAcs(
 
     ){
-        return acService.listAcs();
+        return arCondicionadoService.listAcs();
     }
 }

@@ -1,32 +1,32 @@
 package com.domoticswot.resource;
 
 import com.domoticswot.hardware.ControlGpioExample;
-import com.domoticswot.service.LampadaService;
+import com.domoticswot.service.DispositivoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/lampada")
+@RequestMapping("/Dispositivo")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class LampadaResource {
+public class DispositivoResource {
 
     @Autowired
-    LampadaService lampadaService;
+    DispositivoService dispositivoService;
 
     @Autowired
     ControlGpioExample controlGpioExample;
 
-    @GetMapping("/acender")
+    @GetMapping("/ligar")
     public String SwitchOn(
             @RequestParam String id
     ) {
-        return lampadaService.acenderLampada(id);
+        return dispositivoService.ligarDispositivo(id);
     }
 
-    @GetMapping("/apagar")
+    @GetMapping("/desligar")
     public String SwitchOff(
             @RequestParam String id
     ) {
-        return lampadaService.apagarLampada(id);
+        return dispositivoService.desligarDispositivo(id);
     }
 }
