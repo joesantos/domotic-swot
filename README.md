@@ -1,4 +1,4 @@
-# Instruções para inicialiazação do sistema
+# Instruções para inicialização do sistema
 
 ## Downloads
 
@@ -34,3 +34,7 @@ Abra a pasta client no terminal/cmd/powershell e digite ```./gradlew run```
 Abra a pasta client no terminal e digite o comando ```npm install``` para baixar as dependências da aplicação e em seguida ```npm start``` 
 
 (Necessário ter o Node e npm instalados na máquina)
+
+[mapa do site](sitemap.html)
+
+
