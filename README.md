@@ -35,6 +35,6 @@ Abra a pasta client no terminal e digite o comando ```npm install``` para baixar
 
 (Necessário ter o Node e npm instalados na máquina)
 
-[mapa do site](sitemap.html)
+[mapa do site](sitemap.md) *o mapa do site foi gerado com `tree -H . -o sitemap.md`. É de estranhar gerar um html com extensão md, mas é simples e funciona para o propósito. Explora a capacidade do markdown conter html. Se a extensão for html, o github abre no modo editor de html ao invés de renderizar.*
 
 

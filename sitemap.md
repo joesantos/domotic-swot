@@ -91,7 +91,7 @@
 	│   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ├── <a href="./server/src/main/resources/application-pi.yml">application-pi.yml</a><br>
 	│   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ├── <a href="./server/src/main/resources/application.yml">application.yml</a><br>
 	│   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; └── <a href="./server/src/main/resources/DeviceOntologyMapping.json">DeviceOntologyMapping.json</a><br>
-	└── <a href="./sitemap.html">sitemap.html</a><br>
+	└── <a href="./sitemap.md">sitemap.md</a><br>
 	<br><br>
 	</p>
 	<p>
