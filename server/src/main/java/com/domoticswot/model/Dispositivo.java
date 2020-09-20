@@ -14,17 +14,17 @@ public class Dispositivo {
     @Nullable
     private URI uri;
 
-    private boolean estaMudo;
+    private boolean isMute;
 
-    private boolean temStatus;
-
-    @Nullable
-    private Double temValor;
+    private boolean hasStatus;
 
     @Nullable
-    private Integer temVolume;
+    private Double hasValue;
 
-    private UUID temId;
+    @Nullable
+    private Integer hasVolume;
 
-    private String temNome;
+    private UUID hasId;
+
+    private String hasName;
 }

@@ -5,10 +5,16 @@ import com.domoticswot.hardware.VirtualDevice;
 import com.domoticswot.model.DeviceMap;
 import com.domoticswot.util.SparqlQueryString;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.jena.ontology.OntClass;
+import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntModelSpec;
+import org.apache.jena.ontology.OntProperty;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Literal;
+import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdfconnection.RDFConnectionFuseki;
 import org.apache.jena.rdfconnection.RDFConnectionRemoteBuilder;
+import org.apache.jena.sparql.resultset.JSONOutput;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +23,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Map;
 
 @Service
@@ -80,6 +87,8 @@ public class DispositivoService {
             RDFConnectionFuseki conn = (RDFConnectionFuseki) builder.build();
             Literal preCondicao;
             Literal posCondicao;
+            org.apache.jena.rdf.model.Resource affectedClass;
+
 
             QueryExecution qe = conn.query(getService);
             ResultSet rsService = qe.execSelect();
@@ -88,12 +97,31 @@ public class DispositivoService {
                 QuerySolution qs = rsService.next();
                 preCondicao = qs.getLiteral("hasPreCondition");
                 posCondicao = qs.getLiteral("hasPostCondition");
+                affectedClass = qs.getResource("affects");
             } while (rsService.hasNext());
 
             qe.close();
 
-            QueryExecution qeAsk = conn.query(SparqlQueryString.getPrefixes() + preCondicao.getString());
-            boolean rsAsk = qeAsk.execAsk();
+            OntModel model = ModelFactory.createOntologyModel(OntModelSpec.RDFS_MEM_RDFS_INF, conn.fetch()); //conn.fetch() retorna o model referente à ontologia hospedada no Fuseki
+            OntClass affected = model.getOntClass(affectedClass.getURI());
+
+            boolean rsAsk = false;
+
+            System.out.println(affected);
+            for (Iterator i = affected.listSubClasses(); i.hasNext(); ) {
+
+                OntClass c = (OntClass) i.next();
+
+                QueryExecution qeAsk = conn.query(SparqlQueryString.getPrefixes() + preCondicao.getString()
+                        .replace("#id", id)
+                        .replace("#classUri", c.getURI())
+                );
+
+                rsAsk = qeAsk.execAsk();
+                qeAsk.close();
+
+                if(rsAsk) break;
+            }
 
             System.out.println("After ask -> " + rsAsk);
 

@@ -20,12 +20,12 @@ public class IndividualResource {
 
     public Dispositivo dispositivo = Dispositivo.builder()
             .uri(null)
-            .temNome("sensor de temperatura do forno")
-            .temId(UUID.randomUUID())
-            .estaMudo(false)
-            .temStatus(false)
-            .temValor(null)
-            .temVolume(null)
+            .hasName("sensor de temperatura do forno")
+            .hasId(UUID.randomUUID())
+            .isMute(false)
+            .hasStatus(false)
+            .hasValue(null)
+            .hasVolume(null)
             .build();
 
 

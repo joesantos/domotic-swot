@@ -1,37 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import ArCondicionado from './components/cards/devices/ArCondicionado';
-
-function App() {
-  const [devices, setDevices] = useState([]);
-
-  async function getDevices() {
-    const response = await fetch("http://localhost:8080/ArCondicionado/list");
-    const responseJson = await response.json();
-    setDevices(responseJson)
-  }
-
-  useEffect(() => {
-    if (devices.length === 0) getDevices();
-  })
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+import Home from "./pages/Home";
+import NewIndividualForm from "./pages/NewIndividualForm";
 
 
+
+export default function App() {
   return (
-    <div className="App">
-      {
-        devices.length > 0 ? devices.map((item) =>
-          <div className='container'>
-            {item.hasTemperature ?
-              <ArCondicionado item={item} update={getDevices} />
-              :
-              <div>Dispositivo não definido na aplicação {JSON.stringify(item)}</div>
-            }
-          </div>
-        )
-          :
-          <div>Não há dispositivos disponíveis</div>
-      }
-    </div>
+    <Router>
+      <div>
+        <Switch>
+          <Route path="/">
+            <NewIndividualForm/>
+          </Route>
+          <Route path="/newIndividual" component={NewIndividualForm} render={NewIndividualForm}>
+            <NewIndividualForm />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
-
-export default App;

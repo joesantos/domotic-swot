@@ -10,15 +10,26 @@ public class SparqlQueryString {
                 "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n";
     }
 
-    //Variável ?o corresponde a preCondicao e ?p a posCondicao
     public static String getPreAndPostConditionService(String servicePath) {
-        return getPrefixes() + "\n SELECT ?hasPreCondition ?hasPostCondition  WHERE{\n" +
+        return getPrefixes() + "\n SELECT ?hasPreCondition ?hasPostCondition ?affects WHERE{\n" +
                 "?s rdf:type :Servico;\n" +
                 ":hasPath '" + servicePath + "';\n" +
                 ":hasPreCondition ?hasPreCondition;\n" +
-                ":hasPostCondition ?hasPostCondition.\n" +
+                ":hasPostCondition ?hasPostCondition;\n" +
+                ":affects ?affects .\n" +
                 "}\n";
     }
+
+    public static String getPreAndPostConditionServiceBySensor(String sensorUri) {
+        return getPrefixes() + "\n SELECT ?hasPreCondition ?hasPostCondition ?affects WHERE{\n" +
+                "?s rdf:type :Servico;\n" +
+                ":reactsTo <" + sensorUri + ">;\n" +
+                ":hasPreCondition ?hasPreCondition;\n" +
+                ":hasPostCondition ?hasPostCondition;\n" +
+                ":affects ?affects .\n" +
+                "}\n";
+    }
+
 
 
     public static String getServicesPathByClass(String deviceClass) {
@@ -36,6 +47,12 @@ public class SparqlQueryString {
                 ":hasName ?hasName;\n" +
                 ":hasId ?hasId;\n" +
                 ":hasLocal ?hasLocal .\n" +
+                "}";
+    }
+
+    public static String getClasses(){
+        return getPrefixes() + "SELECT ?class WHERE{\n" +
+                "\t?class a owl:Class;\n" +
                 "}";
     }
 }

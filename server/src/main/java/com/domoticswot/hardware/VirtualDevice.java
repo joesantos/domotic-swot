@@ -16,6 +16,11 @@ public class VirtualDevice {
         System.out.println("Dispositivo " + id + "Ligado!");
     }
 
+    public void atualizarValorSensor(String id){
+        System.out.println("");
+    }
+
+
     public void desligarDispositivo(String id){
         System.out.println("Dispositivo " + id + "Desligado!");
     }

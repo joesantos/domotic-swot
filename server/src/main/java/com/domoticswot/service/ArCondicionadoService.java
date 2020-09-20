@@ -3,6 +3,7 @@ package com.domoticswot.service;
 import com.domoticswot.hardware.ControlGpioExample;
 import com.domoticswot.hardware.VirtualDevice;
 import com.domoticswot.model.AcDTO;
+import com.domoticswot.model.DeviceMap;
 import com.domoticswot.util.Services;
 import com.domoticswot.util.SparqlQueryString;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,8 +14,11 @@ import org.apache.jena.rdfconnection.RDFConnectionRemoteBuilder;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -314,7 +318,7 @@ public class ArCondicionadoService {
         return "ok";
     }
 
-    /*    public DeviceMap parseJsonToObj() {
+        public DeviceMap parseJsonToObj() {
         try {
             Resource resource = new ClassPathResource("DeviceOntologyMapping.json");
             DeviceMap deviceMap = mapper.readValue(resource.getFile(), DeviceMap.class);
@@ -323,7 +327,7 @@ public class ArCondicionadoService {
             e.printStackTrace();
             return null;
         }
-    }*/
+    }
 
     public List<AcDTO> listAcs() {
         //Note
