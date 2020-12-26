@@ -2,7 +2,9 @@
 
 ## Para colaboradores, sobre Git, Github
 
-Isto dá textão, mas, para encurtar, quando há mais de um colaborador, antes de comecar os trabalhos do dia, é bom verificar se sua cópia local está sincronizada com a cópia remota. Para isso, uso `git pull`. 
+Isto dá textão, mas, para encurtar, quando há mais de um colaborador trabalhando no mesmo ramo (acho que é comum em projetos pequenos com equipes pequenas), me parece boa prática sincronizar no começo do dia e *comitar* no fim do dia. Então...
+
+...antes de comecar os trabalhos do dia, é bom verificar se sua cópia local está sincronizada com a cópia remota. Para isso, uso `git pull`. 
 
 Caso falhe, o mais provável é que seu repositório local foi modificado mas o `commit` não foi feito. Acontece... 
 
@@ -12,7 +14,7 @@ Caso falhe, o mais provável é que seu repositório local foi modificado mas o 
 
 **Importante** `git init` e a opção `--force` não são recomendadas nessa situação pois o trabalho feito pelo colaborador pode ser apagado. O trabaho pode ser recuperado pois está na cópia local do colaborador, mas, é retrabalho...
 
-Fora essas opções, dificilmente perde-se dados com um versionador.
+Fora essas opções, dificilmente perde-se informação com um versionador.
 
 ## Downloads
 
