@@ -1,7 +1,17 @@
 {
     "DeviceMap": {
-        "223456": "223456",
-        "123456": "123456",
-        "999999": "999999"
+        "Ontology#lampada-sala-tv-1": "GPIO1",
+        "Ontology#lampada-sala-tv-2": "GPIO2"
     }
 }
+
+
+
+
+
+
+
+
+
+
+

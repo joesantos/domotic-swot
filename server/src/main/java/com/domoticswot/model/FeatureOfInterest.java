@@ -11,19 +11,19 @@ import lombok.Value;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonDeserialize(builder = SensorBasic.SensorBasicBuilder.class)
-public class SensorBasic {
+@JsonDeserialize(builder = FeatureOfInterest.FeatureOfInterestBuilder.class)
+public class FeatureOfInterest {
 
     @JsonPOJOBuilder()
-    public static class SensorBasicBuilder{
+    public static class FeatureOfInterestBuilder {
 
     }
 
-    Integer hasValue;
+    String hasProperty;
 
-    Integer hasId;
+    String hasUri;
 
-    String hasLocal;
+    String hasType;
 
-    String uri;
+    String actuatedBy;
 }

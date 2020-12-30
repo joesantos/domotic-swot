@@ -6,11 +6,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DeviceListener {
-    @Scheduled(fixedDelay = 10000, initialDelay = 10000)
-    public void testingScheduling(){
-
-        System.out.println("Verificando sensores...");
-        UpdateSensorService.updateSensors();
-    }
+//    @Scheduled(fixedDelay = 10000, initialDelay = 10000)
+//    public void testingScheduling(){
+//
+//        System.out.println("Verificando sensores...");
+//        UpdateSensorService.updateSensors();
+//    }
 
 }
