@@ -256,4 +256,12 @@ INSERT DATA{
 
 ### Leitura
 
+Para fazer a leitura e retornar o dispositivo desejado, devemos escolher um dos métodos disponíveis para tal. Temos um que retorna os Features Of Interest com seus atuadores, para fins de atuação, e outro que retorna demais características própria do dispositivo, mas sem trazer informações sobre seus atuadores.
+
+![alt text](diario/Captura%20de%20tela%202021-01-25%20191633.png)
+
 ### Atualização
+
+A Atualização de um dispositivo consiste na criação de uma nova atuação ou observação, e necessariamente o resultado da última observação ou atuação feita sobre um dispositivo, será o estado atual, pois a alteração de estado ocorre apenas com a inserção de uma nova `sosa:Actuation` ou `sosa:Observation` na base de conhecimento.
+
+No caso da sosa:Actuation, ela é gerada necessariamente com base em um sosa:Actuator (ou subclasses). Já uma instância de `sosa:Observation` é gerada à partir de um `ssn:Sensor` (ou subclasses)

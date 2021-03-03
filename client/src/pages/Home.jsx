@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ArCondicionado from "../components/cards/devices/ArCondicionado";
+import DefaultDevice from "../components/cards/devices/DefaultDevice";
 
 function Home() {
   const [devices, setDevices] = useState([]);
@@ -19,7 +20,7 @@ function Home() {
   return (
     <div className="App">
       {devices.length > 0 ? (
-        devices.map((item) => <div>{JSON.stringify(item)}</div>)
+        devices.map((item) => <DefaultDevice device={item}></DefaultDevice>)
       ) : (
         <div>Não há dispositivos disponíveis</div>
       )}

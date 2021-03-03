@@ -119,6 +119,43 @@ public class UpdateSensorService {
         }
     }
 
+    public static void getActuator(org.apache.jena.rdf.model.Resource hasProperty) {
+        //Note
+        RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create().destination("http://localhost:3030/test");
+        //Rpi
+        //RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create().destination("http://192.168.1.56:3030/test");
+
+        Query getActuator = QueryFactory.create(SparqlQueryString.getFeaturesOfInterest());
+
+        try(RDFConnectionFuseki conn = (RDFConnectionFuseki) builder.build()) {
+            List<FeatureOfInterest> featuresOfInterest = new ArrayList<>();
+
+            QueryExecution qe = conn.query(getActuator);
+            ResultSet rsService = qe.execSelect();
+
+            do {
+//                QuerySolution qs = rsService.next();
+//                org.apache.jena.rdf.model.Resource hasProperty = qs.getResource("hasProperty");
+//                org.apache.jena.rdf.model.Resource uri = qs.getResource("uri");
+//                org.apache.jena.rdf.model.Resource type = qs.getResource("type");
+//
+//                System.out.println(hasProperty);
+//
+//                featuresOfInterest.add(FeatureOfInterest.builder().hasProperty(hasProperty.getURI()).hasUri(uri.getURI()).hasType(type.getURI()).build());
+
+            } while (rsService.hasNext());
+
+            qe.close();
+
+//            return featuresOfInterest;
+        } catch (Exception e) {
+            System.out.println("Não foi possível instanciar conexão");
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
+
     public static List<FeatureOfInterest> listFeatureOfInterests() {
         //Note
         RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create().destination("http://localhost:3030/test");
@@ -139,11 +176,14 @@ public class UpdateSensorService {
                 org.apache.jena.rdf.model.Resource uri = qs.getResource("uri");
                 org.apache.jena.rdf.model.Resource type = qs.getResource("type");
 
+                System.out.println(hasProperty);
+
                 featuresOfInterest.add(FeatureOfInterest.builder().hasProperty(hasProperty.getURI()).hasUri(uri.getURI()).hasType(type.getURI()).build());
 
             } while (rsService.hasNext());
 
             qe.close();
+
             return featuresOfInterest;
         } catch (Exception e) {
             System.out.println("Não foi possível instanciar conexão");

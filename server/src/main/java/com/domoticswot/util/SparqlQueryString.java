@@ -61,6 +61,16 @@ public class SparqlQueryString {
                 "}";
     }
 
+    public static String getActuation(String hasProperty) {
+        return getPrefixes() + "SELECT ?s ?p ?o ?resultTime ?hasSimpleResult WHERE {\n" +
+                "   ?s a sosa:Actuation;\n" +
+                "   sosa:resultTime ?resultTime ;\n" +
+                "   sosa:hasSimpleResult ?hasSimpleResult ;\n" +
+                "   sosa:actsOnProperty <" + hasProperty + ">" +
+                "}\n" +
+                "ORDER BY DESC(?resultTime)";
+    }
+
     public static String getFeaturesOfInterestWithActuators() {
         return getPrefixes() + "SELECT ?uri ?hasProperty ?type ?actedBy WHERE{\n" +
                 "  ?uri a ?subClass;\n" +
