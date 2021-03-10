@@ -151,6 +151,8 @@ For troubleshooting, visit <b>https://help.gradle.org</b>
 
 </pre>
 
+Em 2021-03-10-105506 implantei a atualização do sistema na mesma máquina. [Captura de tela ao final da instalação do servidor](diario/Captura%20de%20tela%20de%202021-03-10%2010-39-43.png).
+
 ## Executando aplicação client
 
 Abra a pasta client no terminal e digite o comando `npm install` para baixar as dependências da aplicação e em seguida `npm start`
@@ -162,7 +164,18 @@ Abra a pasta client no terminal e digite o comando `npm install` para baixar as 
 
 **nota**: Necessário ter o Node e npm instalados na máquina
 
-No Ubuntu 20.04LTS, partes do Node são instaladas automaticamente com a distribuição, entre elas, o `npm`
+No Ubuntu 20.04LTS, partes do Node são instaladas automaticamente com a distribuição, entre elas, o `npm`. Desta forma, provavelmente, num sistema com Ubuntu, não será necessário instalar `npm`. 
+
+Em 2021-03-10-105506 implantei a atualização do sistema na mesma máquina. Houve um erro de instalação do `formik`. [Captura de tela ao final da instalação do cliente](diario/Captura%20de%20tela%20de%202021-03-10%2010-42-11.png). Isto se resolve instalando `formik` com `npm install formik --save`.
+
+Referências:
+
+- https://formik.org/docs/overview#installation
+- https://www.npmjs.com/package/formik
+
+Para executar, desta vez, usei `npm run`. Neste caso, aparentemente, é igual a `npm start`.[Captura de tela ao final da instalação do cliente com formik instalado](diario/Captura%20de%20tela%20de%202021-03-10%2010-46-48.png)
+
+
 
 [mapa do site](sitemap.md) _o mapa do site foi gerado com `tree -H . -o sitemap.md`. Todos os arquivos são listados, o .gitignore é ignorado, logo há arquivos na árvore que não estão no github. É de estranhar gerar um html com extensão md, mas é simples e funciona para o propósito. Explora a capacidade do markdown conter html. Se a extensão for html, o github abre no modo editor de html ao invés de renderizar._
 
