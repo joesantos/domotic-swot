@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import ArCondicionado from "../components/cards/devices/ArCondicionado";
 import DefaultDevice from "../components/cards/devices/DefaultDevice";
 
 function Home() {
@@ -7,15 +6,15 @@ function Home() {
 
   async function getDevices() {
     const response = await fetch(
-      "http://localhost:8080/feature-of-interest/list/all"
+      "http://localhost:3008/feature-of-interest/list/all
     );
     const responseJson = await response.json();
     setDevices(responseJson);
   }
 
   useEffect(() => {
-    if (devices.length === 0) getDevices();
-  });
+    getDevices();
+  }, []);
 
   return (
     <div className="App">

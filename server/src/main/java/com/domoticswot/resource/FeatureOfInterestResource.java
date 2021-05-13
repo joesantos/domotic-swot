@@ -17,6 +17,13 @@ public class FeatureOfInterestResource {
         return UpdateSensorService.listFeatureOfInterests();
     }
 
+    @GetMapping("/test")
+    public void testFuseki() {
+//        return UpdateSensorService.listFeatureOfInterests();
+        UpdateSensorService.testEmbeddedFuseki();
+    }
+
+
     @GetMapping("/list-with-actuators/all")
     public List<FeatureOfInterest> listAllFeatureOfInterestWithActuators() {
         return UpdateSensorService.listFeaturesOfInterestWithActuators();

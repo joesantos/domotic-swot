@@ -186,7 +186,7 @@ Acima podemos ver um exemplo de uma query sendo realizada na classe Service e a 
 
 ### Inserção de um novo dispositivo
 
-A inserção de um novo dispositivo consiste em adicionar o FeatureOfInterest desejado e todas as suas dependências, caso não tenham sido inseridas anteriormente. Segue um exemplo abaixo de inserção de um novo dispositivo utilizando SPARQL
+A inserção de um novo dispositivo consiste em adicionar o FeatureOfInterest desejado e todas as suas dependências, caso não tenham sido inseridas anteriormente. Segue um exemplo abaixo de inserção de um novo dispositivo utilizando SPARQL, que atualmente é executado por meio da interface do Apache Jena Fuseki, disponível em `http://localhost:3030` após a execução o fuseki-server.bat.
 
 ```
 INSERT DATA{
@@ -256,7 +256,7 @@ INSERT DATA{
 
 ### Leitura
 
-Para fazer a leitura e retornar o dispositivo desejado, devemos escolher um dos métodos disponíveis para tal. Temos um que retorna os Features Of Interest com seus atuadores, para fins de atuação, e outro que retorna demais características própria do dispositivo, mas sem trazer informações sobre seus atuadores.
+Para fazer a leitura e retornar o dispositivo desejado, devemos escolher um dos métodos disponíveis para tal. Temos um que retorna os Features Of Interest com seus atuadores, o `listFeatureOdInterestWithActuators`, para fins de atuação, e outro que retorna demais características própria do dispositivo, mas sem trazer informações sobre seus atuadores, o `listFeaturesOfInterest`.
 
 ![alt text](diario/Captura%20de%20tela%202021-01-25%20191633.png)
 

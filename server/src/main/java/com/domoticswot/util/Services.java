@@ -10,7 +10,7 @@ import java.util.List;
 public class Services {
     public static List<String> getServicesPath(String deviceClass){
         //Note
-        RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create().destination("http://localhost:3030/test");
+        RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create().destination("http://localhost:3030/ds");
         //Rpi
         //RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create().destination("http://192.168.1.56:3030/test");
 
