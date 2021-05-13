@@ -1,6 +1,7 @@
 package com.domoticswot.service;
 
 import com.domoticswot.hardware.VirtualDevice;
+import com.domoticswot.model.Actuation;
 import com.domoticswot.model.DeviceMap;
 import com.domoticswot.model.FeatureOfInterest;
 import com.domoticswot.model.UpdateFeatureOfInterestRequest;
@@ -15,7 +16,9 @@ import org.apache.jena.update.UpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -155,17 +158,35 @@ public class UpdateSensorService {
         }
     }
 
+    public static void testEmbeddedFuseki(){
+        RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create().destination("http://localhost:3332/ds");
+        try(RDFConnectionFuseki conn = (RDFConnectionFuseki) builder.build()) {
+            File file = ResourceUtils.getFile("classpath:Ontology.ttl");
+            conn.put(file.toString());
+
+            try{
+                UpdateRequest updateDevice = UpdateFactory.create(SparqlQueryString.insertDevices());
+                conn.update(updateDevice);
+            }catch(Exception e){
+                System.out.println("Erro no insert");
+            }
+
+        }catch (Exception e) {
+            System.out.println("Não foi possível instanciar conexão");
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
 
     public static List<FeatureOfInterest> listFeatureOfInterests() {
-        //Note
-        RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create().destination("http://localhost:3030/test");
-        //Rpi
-        //RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create().destination("http://192.168.1.56:3030/test");
+        RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create().destination("http://localhost:3332/ds");
 
         Query getFeaturesOfInterests = QueryFactory.create(SparqlQueryString.getFeaturesOfInterest());
+        Query getActuation = QueryFactory.create(SparqlQueryString.getActuationQuery());
 
         try(RDFConnectionFuseki conn = (RDFConnectionFuseki) builder.build()) {
             List<FeatureOfInterest> featuresOfInterest = new ArrayList<>();
+            List<Actuation> actuations = new ArrayList<>();
 
             QueryExecution qe = conn.query(getFeaturesOfInterests);
             ResultSet rsService = qe.execSelect();
@@ -184,6 +205,26 @@ public class UpdateSensorService {
 
             qe.close();
 
+            QueryExecution qeActuation = conn.query(getActuation);
+            ResultSet rsServiceActuation = qeActuation.execSelect();
+
+            do {
+                QuerySolution qs = rsServiceActuation.next();
+
+                org.apache.jena.rdf.model.Resource uri = qs.getResource("uri");
+                org.apache.jena.rdf.model.Resource affectedProperty = qs.getResource("affectedProperty");
+                org.apache.jena.rdf.model.Literal simpleResult = qs.getLiteral("hasSimpleResult");
+
+                actuations.add(Actuation.builder()
+                        .affectedProperty(affectedProperty.getURI())
+                        .hasSimpleResult(simpleResult.getString())
+                        .uri(uri.getURI())
+                        .build());
+            } while (rsService.hasNext());
+
+//            Query getProperties = QueryFactory.create();
+//            QueryExecution qeProperty = conn.query()
+
             return featuresOfInterest;
         } catch (Exception e) {
             System.out.println("Não foi possível instanciar conexão");
@@ -191,6 +232,8 @@ public class UpdateSensorService {
             throw new RuntimeException();
         }
     }
+
+    public static
 
     public static List<FeatureOfInterest> listFeaturesOfInterestWithActuators() {
         //Note
@@ -210,11 +253,8 @@ public class UpdateSensorService {
                 QuerySolution qs = rsService.next();
                 org.apache.jena.rdf.model.Resource hasProperty = qs.getResource("hasProperty");
                 org.apache.jena.rdf.model.Resource uri = qs.getResource("uri");
-                org.apache.jena.rdf.model.Resource type = qs.getResource("type");
-                org.apache.jena.rdf.model.Resource actuatedBy = qs.getResource("actedBy");
 
-
-                featuresOfInterest.add(FeatureOfInterest.builder().hasProperty(hasProperty.getURI()).hasUri(uri.getURI()).hasType(type.getURI()).actuatedBy(actuatedBy.getURI()).build());
+//                featuresOfInterest.add(FeatureOfInterest.builder().hasProperty(hasProperty.getURI()).hasUri(uri.getURI()).hasType(type.getURI()).actuatedBy(actuatedBy.getURI()).build());
 
             } while (rsService.hasNext());
 
